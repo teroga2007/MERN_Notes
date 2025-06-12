@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import RateLimited from "../components/RateLimited";
-import axios from "axios";
 import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard";
 import { LoaderIcon } from "lucide-react";
 import NotesNotFound from "../components/NotesNotFound";
+import api from "../lib/axios";
 
 type Note = {
   _id: string;
@@ -22,7 +22,7 @@ export const Homepage = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/notes");
+        const res = await api.get("/notes");
         console.log("Notes fetched:", res.data);
         setNotes(res.data);
         setIsRateLimit(false);
